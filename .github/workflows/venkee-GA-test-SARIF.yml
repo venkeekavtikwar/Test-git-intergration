@@ -19,7 +19,7 @@ jobs:
         uses: sysdiglabs/scan-action@v4
         with:
           # Tag of the image to analyse
-          image-tag: sysdiglabs/dummy-vuln-app:latest
+          image-tag: alpine:latest
           # API token for Sysdig Scanning auth
           sysdig-secure-token: f7655d37-99ae-479c-9655-547d9a281cc7
           sysdig-secure-url: https://us2.app.sysdig.com/
