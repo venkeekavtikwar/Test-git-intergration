@@ -1,0 +1,33 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Scan Image
+
+on:
+  workflow_dispatch:
+
+jobs:
+  remote-scan-from-registry:
+    runs-on: ubuntu-latest
+
+    steps:
+      # This step checks out a copy of your repository.
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Scan dummy-vuln-app from registry
+        id: scan
+        uses: sysdiglabs/scan-action@v4
+        with:
+          # Tag of the image to analyse
+          image-tag: sysdiglabs/dummy-vuln-app:latest
+          # API token for Sysdig Scanning auth
+          sysdig-secure-token: f7655d37-99ae-479c-9655-547d9a281cc7
+          sysdig-secure-url: https://us2.app.sysdig.com/
+          stop-on-failed-policy-eval: true
+          stop-on-processing-error: true
+
+      - name: Upload SARIF file
+        if: success() || failure() # Upload results regardless previous step fails
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: ${{ github.workspace }}/sarif.json
