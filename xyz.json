@@ -1,0 +1,6 @@
+{
+  "$schema": "https://abcd.com/abc.json"
+  "extends": [
+     "config:recommended" 
+   ]
+}
